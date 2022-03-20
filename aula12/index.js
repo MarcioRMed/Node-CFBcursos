@@ -1,8 +1,13 @@
 // Upload de arquivos em Node- módulo formidable
 
 //nao funcionou ???
+
 // link da aula
 // https://www.youtube.com/watch?v=ddgGeQvr67c&list=PLx4x_zx8csUjFC41ev2qX5dnr-0ThpoXE&index=12
+
+
+//exemplos de uso
+// https://www.npmjs.com/package/formidable
 
 const http = require('http')
 const porta = process.env.PORT || 3000
@@ -27,8 +32,8 @@ const servidor=http.createServer((req,res)=>{
     })
 
   }else{
-      res.writeHead(200, {'Content-Type': 'text/html'})
-      res.write('<form action="envioDeArquivo" method="post" enctype="multipart/form-data">')
+      res.writeHead(200, { 'Content-Type': 'text/html' })
+      res.write('<form action="/envioDeArquivo" method="post" enctype="multipart/form-data">')
       res.write('<input type="file" name="filetoupload"><br>')
       res.write('<input type="submit" value="Enviar"')
       res.write('</form>')
