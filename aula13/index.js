@@ -11,25 +11,21 @@ mongodb.connect(url,(erro,banco)=>{
   const dbo=banco.db('cfbcursos')
   const colecao='cursos'
 
-
-
   // adicionar cursos===================================
 //   const obj=[
-//     {curso:'Curso de Node',canal:'CBF Cursos'},
-//     {curso:'Curso de Javascript',canal:'CBF Cursos'},
-//     {curso:'Curso de Arduino',canal:'CBF Cursos'},
-//     {curso:'Curso de C++',canal:'CBF Cursos'},
-//     {curso:'Curso de Java',canal:'CBF Cursos'}
+//     {curso:'Curso de Node',canal:'CFB Cursos'},
+//     {curso:'Curso de Javascript',canal:'CFB Cursos'},
+//     {curso:'Curso de Arduino',canal:'CFB Cursos'},
+//     {curso:'Curso de C++',canal:'CFB Cursos'},
+//     {curso:'Curso de Java',canal:'CFB Cursos'}
 // ] 
-    
+  
   
 // dbo.collection(colecao).insertMany(obj, async(erro,resultado)=>{
 //     if(erro) throw erro
 //     await console.log(resultado.insertedCount + ' novo(s) curso(s) inseridos')
-//     // banco.close()
+//     banco.close()
 //   })
-
-
 
   
   // inserir dados=================================================================
@@ -38,6 +34,7 @@ mongodb.connect(url,(erro,banco)=>{
   //   console.log('novo curso inserido')
   //   banco.close()
   // })
+
 
   // encontrar registro dentro da coleção====================================
   // const query={curso: /C./} //query - consulta
@@ -64,7 +61,6 @@ mongodb.connect(url,(erro,banco)=>{
   //   })
 
 
-
   // Deletar objeto da coleção====================
 
   // let query={curso: 'Curso de Node'}
@@ -75,7 +71,6 @@ mongodb.connect(url,(erro,banco)=>{
   //  })
 
 
-
   // deleteMany- delete varios ao mesmo tempo===================
   // let query ={curso:/.o/}   
   // dbo.collection(colecao).deleteMany(query,async (erro,resultado)=>{ 
@@ -83,12 +78,47 @@ mongodb.connect(url,(erro,banco)=>{
   //   await console.log(resultado.deletedCount + ' curso(s) deletado(s)')
   //  })
 
-  query={} //     listar após o delete
-  dbo.collection(colecao).find(query,{projection:{_id:0}}).toArray((erro,resultado)=>{ 
-    if(erro)throw erro
-    console.log(resultado)
-    banco.close()
-    })
+
+  // ======listar após o delete============
+  // query={} //     
+  // dbo.collection(colecao).find(query,{projection:{_id:0}}).toArray((erro,resultado)=>{ 
+  //   if(erro)throw erro
+  //   console.log(resultado)
+  //   banco.close()
+  //   })
+
+
+
+
+// modificando /atualizando objetos=================== 
+// updateOne 
+
+// updateMany
+
+// Atualização de objetos
+
+let query={curso: 'Curso de Javascript 2022'}
+let novoObj={$set:{curso: 'Curso de Javascript 2023'}}
+
+// dbo.collection(colecao).updateOne(query,novoObj,(erro,resultado)=>{ 
+//   if(erro)throw erro
+//   console.log('curso atualizado')
+// })
+
+// atualiza varios objetod de uma só vez
+dbo.collection(colecao).updateMany(query,novoObj,async(erro,resultado)=>{ 
+  if(erro)throw erro
+  await console.log(resultado.modifiedCount + ' cursos atualizados')
+})
+
+  
+// lista o banco de dados=====================
+query={}
+dbo.collection(colecao).find(query,{projection:{_id:0}}).toArray((erro,resultado)=>{
+if(erro) throw erro
+console.log(resultado)
+banco.close()
+})
 
 
 
